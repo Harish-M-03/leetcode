@@ -1,42 +1,50 @@
-import java.util.Stack;
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
-
-    
-
-    public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null || k == 1) return head;
-
-        ListNode dummy = new ListNode(0);
-        ListNode groupPrev = dummy;
-
-        ListNode current = head;
-
-        while (current != null) {
-            Stack<ListNode> stack = new Stack<>();
-            ListNode temp = current;
-
-            int count = 0;
-            while (count < k && temp != null) {
-                stack.push(temp);
-                temp = temp.next;
-                count++;
-            }
-
-            if (count < k) {
-                groupPrev.next = current; // less than k, attach rest as-is
-                break;
-            }
-
-            // Reverse group
-            while (!stack.isEmpty()) {
-                groupPrev.next = new ListNode(stack.pop().val);
-                groupPrev = groupPrev.next;
-            }
-
-            current = temp;
+    private ListNode reverse(ArrayList<Integer> arr){
+        Stack<Integer> stack=new Stack<>();
+        for(int num:arr){
+            stack.push(num);
         }
-
-        return dummy.next;
+        ListNode rev=new ListNode(-1);
+        ListNode ptr=rev;
+        while(!stack.isEmpty()){
+            ptr.next=new ListNode(stack.pop());
+            ptr=ptr.next;
+        }
+        return rev.next;
+    }
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ArrayList<Integer> arr=new ArrayList<>();
+        ListNode result=new ListNode(-1);
+        ListNode ptr=result;
+        ListNode temp=head;
+        while(temp!=null){
+            arr.add(temp.val);
+            temp=temp.next;
+            if(arr.size()==k){
+                ListNode r=reverse(arr);
+                ListNode t=r;
+                while(t!=null){
+                    ptr.next=new ListNode(t.val);
+                    ptr=ptr.next;
+                    t=t.next;
+                }
+                arr.clear();
+            }
+        }
+        for(int num:arr){
+            ptr.next=new ListNode(num);
+            ptr=ptr.next;
+        }
+        return result.next;
     }
 }

@@ -14,15 +14,15 @@
  * }
  */
 class Solution {
-    private void LevelOrder(ArrayList<ArrayList<Integer>> arr,TreeNode root){
+    private void levelorder(TreeNode root,ArrayList<ArrayList<Integer>> arr){
         Queue<TreeNode> queue=new LinkedList<>();
         queue.offer(root);
         while(!queue.isEmpty()){
-            ArrayList<Integer> res=new ArrayList<>();
+            ArrayList<Integer> ar=new ArrayList<>();
             int size=queue.size();
             for(int i=0;i<size;i++){
                 TreeNode node=queue.poll();
-                res.add(node.val);
+                ar.add(node.val);
                 if(node.left!=null){
                     queue.offer(node.left);
                 }
@@ -30,25 +30,24 @@ class Solution {
                     queue.offer(node.right);
                 }
             }
-            arr.add(res);
+            arr.add(ar);
         }
     }
     public int maxLevelSum(TreeNode root) {
         ArrayList<ArrayList<Integer>> arr=new ArrayList<>();
-        LevelOrder(arr,root);
-        int count=0,maxi=Integer.MIN_VALUE;
-        int index=-1;
+        levelorder(root,arr);
+        int level=1,maxi=Integer.MIN_VALUE,res=0;
         for(ArrayList<Integer> ar:arr){
             int sum=0;
-            count++;
             for(int num:ar){
                 sum+=num;
             }
             if(maxi<sum){
                 maxi=sum;
-                index=count;
+                res=level;
             }
+            level++;
         }
-        return index;
+        return res;
     }
 }

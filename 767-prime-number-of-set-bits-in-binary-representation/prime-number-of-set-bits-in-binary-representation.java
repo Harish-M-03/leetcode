@@ -1,8 +1,8 @@
 class Solution {
-    private boolean isPrime(int num){
-        if(num<2){
-        return false;
-    }
+    private boolean isValid(int num){
+        if(num<=1){
+            return false;
+        }
         for(int i=2;i<=Math.sqrt(num);i++){
             if(num%i==0){
                 return false;
@@ -20,11 +20,12 @@ class Solution {
     }
     public int countPrimeSetBits(int left, int right) {
         int count=0;
-        for(int i=left;i<=right;i++){
-            int num=NumberofSet(i);
-            if(isPrime(num)){
+        while(left<=right){
+            int num=NumberofSet(left);
+            if(isValid(num)){
                 count++;
             }
+            left++;
         }
         return count;
     }

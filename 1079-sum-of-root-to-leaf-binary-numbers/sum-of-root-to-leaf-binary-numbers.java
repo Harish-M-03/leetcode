@@ -14,20 +14,20 @@
  * }
  */
 class Solution {
-    private void SumtoLeaf(StringBuilder str,TreeNode node,ArrayList<String> arr){
+    private void SumtoLeaf(String str,TreeNode node,ArrayList<String> arr){
         if(node==null){
             return;
         }
-        str.append(Integer.toString(node.val));
+        str=str+node.val;
         if(node.left==null&&node.right==null){
-            arr.add(str.toString());
+            arr.add(str);
         }
-        SumtoLeaf(new StringBuilder(str),node.left,arr);
-        SumtoLeaf(new StringBuilder(str),node.right,arr);
+        SumtoLeaf(str,node.left,arr);
+        SumtoLeaf(str,node.right,arr);
     }
     public int sumRootToLeaf(TreeNode root) {
         ArrayList<String> arr=new ArrayList<>();
-        SumtoLeaf(new StringBuilder(),root,arr);
+        SumtoLeaf("",root,arr);
         int sum=0;
         for(String st:arr){
             int num=Integer.parseInt(st,2);

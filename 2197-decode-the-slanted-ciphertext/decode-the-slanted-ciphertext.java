@@ -1,28 +1,28 @@
 class Solution {
     public String decodeCiphertext(String s, int r) {
-        if (r == 1) return s; // single row — no transformation needed
+        if (r == 1) return s; 
         int n = s.length();
         
-        int c = (int)Math.ceil((double) n / r); // compute number of columns
-        char[][] mat = new char[r][c]; // allocate the r x c matrix
-        char[] arr = s.toCharArray(); // convert for fast indexing
-        int p = 0; // pointer into arr
+        int c = (int)Math.ceil((double) n / r); 
+        char[][] mat = new char[r][c]; 
+        char[] arr = s.toCharArray(); 
+        int p = 0;
 
-        for (int i = 0; i < r; i++) { // fill matrix row by row
-            for (int j = 0; j < c; j++) { // mirroring how encodedText was read
+        for (int i = 0; i < r; i++) { 
+            for (int j = 0; j < c; j++) { 
                 mat[i][j] = arr[p++];
             }
         }
 
         StringBuilder res = new StringBuilder();
-        for (int k = 0; k < c; k++) { // for each diagonal starting column
+        for (int k = 0; k < c; k++) { 
             int x = 0, y = k;
-            while (x < r && y < c) { // walk diagonal down-right
-                res.append(mat[x][y]); // collect characters in original order
+            while (x < r && y < c) { 
+                res.append(mat[x][y]); 
                 x++; y++;
             }
         }
         
-        return res.toString().stripTrailing(); // remove padding spaces at the end
+        return res.toString().stripTrailing();
     }
 }

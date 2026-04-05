@@ -12,6 +12,9 @@ class Solution {
                 horizontal++;
             }
         }
-        return horizontal==0&&vertical==0;
+        if(vertical==0&&horizontal==0){
+            return true;
+        }
+        return false;
     }
 }

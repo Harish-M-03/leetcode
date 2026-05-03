@@ -1,24 +1,26 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-        if (s.length() != goal.length()) return false;
-
-        int n = s.length();
-
-        for (int start = 0; start < n; start++) {
-            if (goal.charAt(start) == s.charAt(0)) {
-                boolean match = true;
-
-                for (int i = 0; i < n; i++) {
-                    if (s.charAt(i) != goal.charAt((start + i) % n)) {
-                        match = false;
+        if(s.length()!=goal.length()){
+            return false;
+        }
+        int n=s.length();
+        boolean isTrue=false;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==goal.charAt(0)){
+                int k=0;
+                boolean isValid=true;
+                for(int j=i;j<i+n;j++){
+                    if(s.charAt(j%n)!=goal.charAt(k++)){
+                        isValid=false;
                         break;
                     }
                 }
-
-                if (match) return true;
+                if(isValid){
+                    isTrue=true;
+                    break;
+                }
             }
         }
-
-        return false;
+        return isTrue;
     }
 }

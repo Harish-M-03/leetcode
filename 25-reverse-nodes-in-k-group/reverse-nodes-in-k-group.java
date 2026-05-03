@@ -9,42 +9,29 @@
  * }
  */
 class Solution {
-    private ListNode reverse(ArrayList<Integer> arr){
-        Stack<Integer> stack=new Stack<>();
-        for(int num:arr){
-            stack.push(num);
-        }
-        ListNode rev=new ListNode(-1);
-        ListNode ptr=rev;
-        while(!stack.isEmpty()){
-            ptr.next=new ListNode(stack.pop());
-            ptr=ptr.next;
-        }
-        return rev.next;
-    }
     public ListNode reverseKGroup(ListNode head, int k) {
-        ArrayList<Integer> arr=new ArrayList<>();
-        ListNode result=new ListNode(-1);
-        ListNode ptr=result;
+        Stack<Integer> stack=new Stack<>();
+        int cnt=0;
         ListNode temp=head;
+        ListNode newHead=new ListNode(-1);
+        ListNode ptr=newHead;
         while(temp!=null){
-            arr.add(temp.val);
-            temp=temp.next;
-            if(arr.size()==k){
-                ListNode r=reverse(arr);
-                ListNode t=r;
-                while(t!=null){
-                    ptr.next=new ListNode(t.val);
+            cnt++;
+            stack.push(temp.val);
+            if(cnt%k==0){
+                while(!stack.isEmpty()){
+                    ptr.next=new ListNode(stack.pop());
                     ptr=ptr.next;
-                    t=t.next;
                 }
-                arr.clear();
+            }
+            temp=temp.next;
+        }
+        if(!stack.isEmpty()){
+            for(int num:stack){
+                ptr.next=new ListNode(num);
+                ptr=ptr.next;
             }
         }
-        for(int num:arr){
-            ptr.next=new ListNode(num);
-            ptr=ptr.next;
-        }
-        return result.next;
+        return newHead.next;
     }
 }

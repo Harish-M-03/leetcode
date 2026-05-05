@@ -1,11 +1,11 @@
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
-        int[] result=new int[nums.length];
         int n=nums.length;
-        for(int i=0;i<nums.length;i++){
+        int[] result=new int[n];
+        for(int i=0;i<n;i++){
             int next=-1;
             for(int j=i+1;j<i+n;j++){
-                if(nums[j%n]>nums[i]){
+                if(nums[i]<nums[j%n]){
                     next=nums[j%n];
                     break;
                 }

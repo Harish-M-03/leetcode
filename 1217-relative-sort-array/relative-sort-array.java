@@ -17,14 +17,20 @@ class Solution {
             }
             freq[num]=0;
         }
-        for(int i = 0; i < freq.length; i++){
-
-            while(freq[i] > 0){
-
-                result[k++] = i;
-
-                freq[i]--;
+        int[] rest=new int[arr1.length-k];
+        int l=0;
+        for(int num:arr1){
+            int n=freq[num];
+            if(n!=0){
+                for(int i=0;i<n;i++){
+                    rest[l++]=num;
+                }
+                freq[num]=0;
             }
+        }
+        Arrays.sort(rest);
+        for(int i=0;i<rest.length;i++){
+            result[k++]=rest[i];
         }
         return result;
     }

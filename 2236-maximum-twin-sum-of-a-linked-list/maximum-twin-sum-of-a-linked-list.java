@@ -1,30 +1,34 @@
 class Solution {
+    private ListNode reverse(ListNode node){
+        ListNode current=node;
+        ListNode prev=null;
+        while(current!=null){
+            ListNode next=current.next;
+            current.next=prev;
+            prev=current;
+            current=next;
+        }
+        return prev;
+    }
     public int pairSum(ListNode head) {
-        // Step 1: Find middle
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while(fast != null && fast.next != null){
-            slow = slow.next;
-            fast = fast.next.next;
+        ListNode slow=head;
+        ListNode fast=head;
+        ListNode prev=null;
+        while(fast!=null&&fast.next!=null){
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        ListNode prev = null;
-        while(slow != null){
-            ListNode next = slow.next;
-            slow.next = prev;
-            prev = slow;
-            slow = next;
+        prev.next=null;
+        slow=reverse(slow);
+        ListNode temp=head;
+        int maxi=Integer.MIN_VALUE;
+        while(temp!=null&&slow!=null){
+            int sum=temp.val+slow.val;
+            maxi=Math.max(maxi,sum);
+            temp=temp.next;
+            slow=slow.next;
         }
-        int max = 0;
-        ListNode first = head;
-        ListNode second = prev;
-
-        while(second != null){
-            max = Math.max(max, first.val + second.val);
-            first = first.next;
-            second = second.next;
-        }
-
-        return max;
+        return maxi;
     }
 }

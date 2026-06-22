@@ -12,13 +12,12 @@ class Solution {
             for(char ch:str.toCharArray()){
                 if(freq[ch-'a']>=1){
                     freq[ch-'a']--;
-                    cnt++;
                 }else{
                     isValid=false;
                     break;
                 }
             }
-            if(!isValid&&cnt!=7){
+            if(!isValid){
                 break;
             }else{
                 count+=1;

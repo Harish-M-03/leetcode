@@ -10,15 +10,13 @@
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        Stack<Integer> stack=new Stack<>();
-        int cnt=0;
-        ListNode temp=head;
         ListNode newHead=new ListNode(-1);
         ListNode ptr=newHead;
+        Stack<Integer> stack=new Stack<>();
+        ListNode temp=head;
         while(temp!=null){
-            cnt++;
             stack.push(temp.val);
-            if(cnt%k==0){
+            if(stack.size()==k){
                 while(!stack.isEmpty()){
                     ptr.next=new ListNode(stack.pop());
                     ptr=ptr.next;

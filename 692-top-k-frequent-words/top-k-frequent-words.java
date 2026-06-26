@@ -1,29 +1,23 @@
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
+        List<String> arr=new ArrayList<>();
         HashMap<String,Integer> map=new HashMap<>();
         for(String str:words){
             map.put(str,map.getOrDefault(str,0)+1);
         }
-        List<String> res=new ArrayList<>();
-        int i=0;
-        while(i<k){
+        while(k!=0){
+            String st="";
             int maxfreq=0;
-            String maxString="";
-            for(String str:map.keySet()){
-                if(maxfreq<map.get(str)){
-                    maxfreq=map.get(str);
-                    maxString=str;
-                }else if (map.get(str) == maxfreq) {
-                    if (str.compareTo(maxString) < 0) {
-                        maxString = str;
-                    }
+            for(String key:map.keySet()){
+                if(maxfreq<map.get(key)||(maxfreq==map.get(key)&&key.compareTo(st) < 0)){
+                    maxfreq=map.get(key);
+                    st=key;
                 }
-
             }
-            res.add(maxString);
-            map.remove(maxString);
-            i++;
+            arr.add(st);
+            map.remove(st);
+            k--;
         }
-        return res;
+        return arr;
     }
 }

@@ -1,25 +1,27 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
+        if(nums.length==1){
+            return nums;
+        }
         HashMap<Integer,Integer> map=new HashMap<>();
+        int[] result=new int[k];
         for(int num:nums){
             map.put(num,map.getOrDefault(num,0)+1);
         }
         int i=0;
-        int[] res=new int[k];
-        while(i<k){
-            int maxkey=0;
-            int maxval=0;
-            int j=0;
-            for(int num:map.keySet()){
-                if(map.get(num)>maxval){
-                    maxkey=num;
-                    maxval=map.get(num);
+        while(k!=0){
+            int maxfreq=0;
+            int num=0;
+            for(int key:map.keySet()){
+                if(maxfreq<map.get(key)){
+                    maxfreq=map.get(key);
+                    num=key;
                 }
             }
-            res[i]=maxkey;
-            map.remove(maxkey);
-            i++;
+            result[i++]=num;
+            map.remove(num);
+            k--;
         }
-        return res;
+        return result;
     }
 }

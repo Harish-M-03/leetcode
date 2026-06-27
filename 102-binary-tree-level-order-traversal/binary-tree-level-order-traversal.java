@@ -14,26 +14,31 @@
  * }
  */
 class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> arr=new ArrayList<>();
-        if(root==null) return arr;
+    private void BFS(TreeNode root,List<List<Integer>> arr){
         Queue<TreeNode> queue=new LinkedList<>();
         queue.offer(root);
         while(!queue.isEmpty()){
-            int levelsize=queue.size();
-            List<Integer> sample=new ArrayList<>();
-            for(int i=0;i<levelsize;i++){
-                TreeNode current=queue.poll();
-                sample.add(current.val);
-                if(current.left!=null){
-                    queue.offer(current.left);
+            int size=queue.size();
+            ArrayList<Integer> ar=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                TreeNode node=queue.poll();
+                ar.add(node.val);
+                if(node.left!=null){
+                    queue.offer(node.left);
                 }
-                if(current.right!=null){
-                    queue.offer(current.right);
+                if(node.right!=null){
+                    queue.offer(node.right);
                 }
             }
-            arr.add(sample);
+            arr.add(ar);
         }
+    }
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> arr=new ArrayList<>();
+        if(root==null){
+            return arr;
+        }
+        BFS(root,arr);
         return arr;
     }
 }

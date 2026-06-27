@@ -19,10 +19,10 @@ class Solution {
         if(root==null){
             return 0;
         }
-        int left=height(root.left);
-        int right=height(root.right);
+        int left=Math.max(0,height(root.left));
+        int right=Math.max(0,height(root.right));
         diameter=Math.max(diameter,left+right);
-        return Math.max(left,right)+1;
+        return 1+Math.max(left,right);
     }
     public int diameterOfBinaryTree(TreeNode root) {
         height(root);

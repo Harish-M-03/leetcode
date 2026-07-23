@@ -1,20 +1,18 @@
 class Solution {
-    private int mbouquets(int[] arr,int mid,int k){
-        int tot=0;
-        int numboq=0;
-        for(int num:arr){
+    private int minimumdays(int[] bloomDay,int mid,int k){
+        int total=0,numbouquets=0;
+        for(int num:bloomDay){
             if(num<=mid){
-                tot++;
-                if(tot==k){
-                     numboq+=1;
-                     tot=0;
+                total++;
+                if(total==k){
+                    numbouquets++;
+                    total=0;
                 }
-               
             }else{
-                tot=0;
+                total=0;
             }
         }
-        return numboq;
+        return numbouquets;
     }
     public int minDays(int[] bloomDay, int m, int k) {
         int maxi=0;
@@ -24,7 +22,7 @@ class Solution {
         int left=1,right=maxi,ans=-1;
         while(left<=right){
             int mid=left+(right-left)/2;
-            int res=mbouquets(bloomDay,mid,k);
+            int res=minimumdays(bloomDay,mid,k);
             if(res>=m){
                 ans=mid;
                 right=mid-1;
@@ -32,6 +30,6 @@ class Solution {
                 left=mid+1;
             }
         }
-        return ans; 
+        return ans;
     }
 }

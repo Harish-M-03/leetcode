@@ -1,26 +1,26 @@
 class Solution {
-    private int capacity(int[] arr,int mid){
-        int total=0,daycount=1;
-        for(int num:arr){
+    private int findshipdays(int[] weights,int mid){
+        int total=0,days=1;
+        for(int num:weights){
             if(total+num>mid){
-                daycount++;
+                days++;
                 total=0;
             }
             total+=num;
         }
-        return daycount;
+        return days;
     }
     public int shipWithinDays(int[] weights, int days) {
         int maxi=0;
-        int mxnum=0;
+        int mini=Integer.MIN_VALUE;
         for(int num:weights){
             maxi+=num;
-            mxnum=Math.max(mxnum,num);
+            mini=Math.max(mini,num);
         }
-        int left=mxnum,right=maxi,ans=-1;
+        int left=mini,right=maxi,ans=-1;
         while(left<=right){
             int mid=left+(right-left)/2;
-            int res=capacity(weights,mid);
+            int res=findshipdays(weights,mid);
             if(res<=days){
                 ans=mid;
                 right=mid-1;

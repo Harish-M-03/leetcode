@@ -1,8 +1,15 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        Arrays.sort(nums);
-        int n1=nums[nums.length-1];
-        int n2=nums[nums.length-2];
-        return (n1-1)*(n2-1);
+        int max1=Integer.MIN_VALUE;
+        int max2=Integer.MIN_VALUE;
+        for(int num:nums){
+            if(max1<num){
+                max2=max1;
+                max1=num;
+            }else if(max2<num){
+                max2=num;
+            }
+        }
+        return (max1-1)*(max2-1);
     }
 }

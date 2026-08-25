@@ -2,18 +2,18 @@ class Solution {
     public String makeGood(String s) {
         Stack<Character> stack=new Stack<>();
         for(char ch:s.toCharArray()){
-            if(!stack.isEmpty()&&Math.abs(stack.peek()-ch)==32){
+            char cl=(char)((int)ch+32);
+            char cu=(char)((int)ch-32);
+            if(!stack.isEmpty()&&(cl==stack.peek()||cu==stack.peek())){
                 stack.pop();
             }else{
                 stack.push(ch);
             }
         }
         String result="";
-        if(!stack.isEmpty()){
-            for(char ch:stack){
-                result+=ch;
-            }
+        for(char ch:stack){
+            result+=ch;
         }
-        return result; 
+        return result;
     }
 }

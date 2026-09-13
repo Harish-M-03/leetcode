@@ -1,24 +1,24 @@
 class Solution {
     public int[] frequencySort(int[] nums) {
         HashMap<Integer,Integer> map=new HashMap<>();
-        int[] result=new int[nums.length];
-        int k=0;
         for(int num:nums){
             map.put(num,map.getOrDefault(num,0)+1);
         }
+        int[] result=new int[nums.length];
+        int k=0;
         while(!map.isEmpty()){
-            int minfreq=Integer.MAX_VALUE;
-            int key=Integer.MIN_VALUE;
+            int mini=Integer.MAX_VALUE;
+            int number=0;
             for(int num:map.keySet()){
-                if(minfreq>map.get(num)||(minfreq==map.get(num)&&key<num)){
-                    minfreq=map.get(num);
-                    key=num;
+                if(mini>map.get(num)||(map.get(num)==mini&&number<num)){
+                    mini=map.get(num);
+                    number=num;
                 }
             }
-            for(int i=0;i<minfreq;i++){
-                result[k++]=key;
+            for(int i=0;i<mini;i++){
+                result[k++]=number;
             }
-            map.remove(key);
+            map.remove(number);
         }
         return result;
     }
